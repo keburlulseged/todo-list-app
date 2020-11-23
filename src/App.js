@@ -1,38 +1,37 @@
 import React, { useState } from "react";
-import './App.css';
 import Todo from './components/Todo'
+import FlipMove from 'react-flip-move';
+import './App.css';
 
 function App() {
-  const [todos, setTodos] = useState([
-    {
-      title: "Take out the trash",
-      description: "The ben men come at 9pm"
-    },
-    {
-      title: "Walk the dog",
-      description: "He is bored"
-    },
-    {
-      title: "Clean the crib",
-      description: "It's getting messy"
-    },
-    {
-      title: "Dominate the day",
-      description: "Only you can change your life"
-    }
-  ]);
+  const [todos, setTodos] = useState([]);
   const [input, setInput] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setTodos([...todos, input]);
+    setInput("");
+  }
 
   return (
     <div className="App">
       <h1>To-do App</h1>
-      <input value={input} onChange={e => setInput(e.target.value)} type="text" />
-      <button>Add Todo</button>
-      {
-        todos.map(todo => (
-          <Todo title={todo.title} description={todo.description} />
-        ))
-      }
+      <form>
+        <input
+          value={input}
+          onChange={e => setInput(e.target.value)}
+          type="text"
+          />
+        <button disabled={!input} type="submit" onClick={handleSubmit}>Add Todo</button>
+      </form>
+
+    
+        {
+          todos.map(todo => (
+            <Todo title={todo}  />
+          ))
+        }
+
 
     </div>
   );
