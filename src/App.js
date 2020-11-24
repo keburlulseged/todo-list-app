@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import Todo from './components/Todo'
-import FlipMove from 'react-flip-move';
 import './App.css';
 
 function App() {
   const [todos, setTodos] = useState([]);
   const [input, setInput] = useState('');
 
-  const handleSubmit = (e) => {
+  const addTodo = (e) => {
     e.preventDefault();
     setTodos([...todos, input]);
     setInput("");
@@ -22,13 +21,16 @@ function App() {
           onChange={e => setInput(e.target.value)}
           type="text"
           />
-        <button disabled={!input} type="submit" onClick={handleSubmit}>Add Todo</button>
+        <button
+          disabled={!input}
+          type="submit"
+          onClick={addTodo}>Add Todo</button>
       </form>
 
-    
+
         {
-          todos.map(todo => (
-            <Todo title={todo}  />
+          todos.map((todo,i) => (
+            <Todo key={i} title={todo}  />
           ))
         }
 
